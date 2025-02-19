@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Éden SPA & Depilações</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --rosa-poesia: #F5DCDC;
+      --verde-jade: #88B7A8;
+      --dourado-suave: #D4C0A1;
+      --preto-suave: #3A3A3A;
+      --branco-puro: #FFFCF9;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: var(--branco-puro);
+      color: var(--preto-suave);
+      line-height: 1.8;
+    }
+
+    header {
+      background: rgba(58,58,58,0.98);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      padding: 1rem 0;
+    }
+
+    nav {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      list-style: none;
+      transition: all 0.3s ease;
+    }
+
+    nav a {
+      color: var(--branco-puro);
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+      position: relative;
+      padding: 0.5rem 0;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--verde-jade);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Ícone do menu móvel */
+    .mobile-menu-icon {
+      display: none;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: var(--branco-puro);
+      font-size: 1.8rem;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    /* Hero Section */
+    .hero-spa {
+      height: 100vh;
+      background: linear-gradient(rgba(58,58,58,0.7), rgba(58,58,58,0.7)),
+                  url('https://images.unsplash.com/photo-1560066984-138dadb4c035') center/cover fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 80px;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      padding: 2rem;
+    }
+
+    .hero-spa h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      color: var(--branco-puro);
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero-spa p {
+      font-size: 1.3rem;
+      color: var(--branco-puro);
+    }
+
+    /* Tabela de Preços */
+    .tabela-precos {
+      padding: 4rem 2rem;
+      background: var(--rosa-poesia);
+    }
+
+    .tabela-precos h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+    }
+
+    table {
+      width: 100%;
+      max-width: 1000px;
+      margin: 2rem auto;
+      border-collapse: collapse;
+      background: var(--branco-puro);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 1.2rem;
+      text-align: left;
+      border-bottom: 1px solid var(--rosa-poesia);
+    }
+
+    th {
+      background: var(--verde-jade);
+      color: var(--branco-puro);
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    tr:hover {
+      background: rgba(136,183,168,0.05);
+    }
+
+    /* Serviços */
+    .servicos-spa {
+      padding: 4rem 2rem;
+      background: #fff;
+    }
+
+    .servicos-spa h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+    }
+
+    .grid-servicos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .card-servico {
+      background: var(--rosa-poesia);
+      padding: 2rem;
+      border-radius: 8px;
+      text-align: center;
+      width: 300px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .card-servico:hover {
+      transform: translateY(0);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .card-servico i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--verde-jade);
+    }
+
+    .card-servico h3 {
+      margin-bottom: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+    }
+
+    /* Depoimentos */
+    .testimonials {
+      padding: 4rem 2rem;
+      background: var(--rosa-poesia);
+    }
+
+    .testimonials h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+    }
+
+    .testimonials-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .testimonial-card {
+      background: var(--branco-puro);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      flex: 1 1 300px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: transform 0.3s;
+    }
+
+    .testimonial-card p {
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-card h4 {
+      text-align: right;
+      font-weight: normal;
+    }
+
+    /* Galeria */
+    .gallery {
+      padding: 4rem 2rem;
+      background: #fff;
+    }
+
+    .gallery h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery-item {
+      width: 100%;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: transform 0.3s;
+    }
+
+    /* Modal Login */
+    .login-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--branco-puro);
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      z-index: 1001;
+      max-width: 400px;
+      width: 90%;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .login-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: 1px solid var(--rosa-poesia);
+      border-radius: 4px;
+    }
+
+    .login-form button {
+      width: 100%;
+      padding: 1rem;
+      margin-top: 1rem;
+      background: var(--verde-jade);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .login-form button:hover {
+      background: #76a294;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--preto-suave);
+      color: var(--branco-puro);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0.5rem 0;
+    }
+
+    .social-media {
+      margin-top: 1rem;
+    }
+
+    .social-media a {
+      color: var(--verde-jade);
+      margin: 0 0.5rem;
+      font-size: 1.5rem;
+      transition: color 0.3s;
+    }
+
+    .social-media a:hover {
+      color: var(--dourado-suave);
+    }
+
+    /* Estilos Responsivos */
+    @media (max-width: 768px) {
+      /* Exibição do menu hamburger */
+      .mobile-menu-icon {
+        display: block;
+      }
+      
+      nav ul {
+        flex-direction: column;
+        background: rgba(58,58,58,0.98);
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        text-align: right;
+        padding: 1rem;
+        display: none;
+      }
+
+      nav ul.nav-active {
+        display: flex;
+      }
+
+      nav ul li {
+        margin-bottom: 1rem;
+      }
+
+      nav ul li:last-child {
+        margin-bottom: 0;
+      }
+
+      .hero-spa h1 {
+        font-size: 2.5rem;
+      }
+      
+      nav ul {
+        gap: 1rem;
+      }
+
+      table, .gallery-grid, .grid-servicos, .testimonials-container {
+        width: 100%;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="mobile-menu-icon" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul id="navList">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#precos">Preços</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#" onclick="mostrarLogin()">Área do Cliente</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-spa" id="inicio">
+    <div class="hero-content">
+      <h1>Beleza Natural e Bem-Estar Integral</h1>
+      <p>Tratamentos personalizados para sua essência e momentos inesquecíveis.</p>
+    </div>
+  </section>
+
+  <!-- Tabela de Preços -->
+  <section class="tabela-precos" id="precos">
+    <h2 class="titulo-secao">Tabela de Preços</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Serviço</th>
+          <th>Duração</th>
+          <th>Preço</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Depilação a Laser (1 sessão)</td>
+          <td>30min</td>
+          <td>R$ 150,00</td>
+        </tr>
+        <tr>
+          <td>SPA Facial Completo</td>
+          <td>1h30min</td>
+          <td>R$ 250,00</td>
+        </tr>
+        <tr>
+          <td>Massagem Relaxante</td>
+          <td>1h</td>
+          <td>R$ 180,00</td>
+        </tr>
+        <tr>
+          <td>Pacote Bem-Estar (4 sessões)</td>
+          <td>2h/sessão</td>
+          <td>R$ 680,00</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Serviços -->
+  <section class="servicos-spa" id="servicos">
+    <h2 class="titulo-secao">Nossos Serviços Premium</h2>
+    <div class="grid-servicos">
+      <!-- Cards gerados por JavaScript -->
+    </div>
+  </section>
+
+  <!-- Depoimentos -->
+  <section class="testimonials" id="depoimentos">
+    <h2 class="titulo-secao">Depoimentos</h2>
+    <div class="testimonials-container">
+      <div class="testimonial-card">
+        <p>"Excelente atendimento e um ambiente super relaxante. Recomendo o SPA para todos!"</p>
+        <h4>- Mariana S.</h4>
+      </div>
+      <div class="testimonial-card">
+        <p>"Os melhores tratamentos que já experimentei. Minha pele nunca esteve tão radiante!"</p>
+        <h4>- Carlos T.</h4>
+      </div>
+      <div class="testimonial-card">
+        <p>"Ambiente acolhedor e profissionais competentes. Cada visita é uma experiência única."</p>
+        <h4>- Juliana R.</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria -->
+  <section class="gallery" id="galeria">
+    <h2 class="titulo-secao">Galeria</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1505751172876-fa1923c5c528');"></div>
+      <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1516542076529-1ea3854896b9');"></div>
+      <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1588776814546-1a53e60b54a7');"></div>
+      <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1576765607924-6a2e94bda29a');"></div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Éden SPA & Depilações. Todos os direitos reservados.</p>
+      <p>Rua Exemplo, 123 - Bairro, Cidade - Estado</p>
+      <p>Telefone: (11) 1234-5678 | Email: contato@edenspa.com.br</p>
+      <div class="social-media">
+        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal de Login -->
+  <div class="login-overlay" id="loginOverlay" onclick="fecharLogin()"></div>
+  <div class="login-modal" id="loginModal">
+    <h2>Acesso do Cliente</h2>
+    <form class="login-form" onsubmit="validarLogin(event)">
+      <input type="email" placeholder="Seu e-mail" required>
+      <input type="password" placeholder="Sua senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+
+  <script>
+    // Função para o menu hamburger em dispositivos móveis
+    function toggleMenu() {
+      const navList = document.getElementById('navList');
+      navList.classList.toggle('nav-active');
+    }
+
+    // Dados dos Serviços
+    const servicos = [
+      {
+        titulo: "SPA Facial Completo",
+        descricao: "Limpeza profunda + Hidratação + Máscara de Ouro",
+        icone: "spa"
+      },
+      {
+        titulo: "Depilação a Laser",
+        descricao: "Tecnologia de ponta para resultados duradouros",
+        icone: "magic-wand-sparkles"
+      },
+      {
+        titulo: "Massagem Relaxante",
+        descricao: "Técnicas ayurvédicas com óleos essenciais",
+        icone: "hands-bubbles"
+      },
+      {
+        titulo: "Day Care Corporal",
+        descricao: "Pacote completo de cuidados para o corpo",
+        icone: "leaf"
+      }
+    ];
+
+    // Gerar cards de serviços
+    const containerServicos = document.querySelector('.grid-servicos');
+    servicos.forEach(servico => {
+      const card = document.createElement('div');
+      card.className = 'card-servico';
+      card.innerHTML = `
+        <i class="fas fa-${servico.icone}"></i>
+        <h3>${servico.titulo}</h3>
+        <p>${servico.descricao}</p>
+      `;
+      containerServicos.appendChild(card);
+    });
+
+    // Sistema de Login com transição suave
+    function mostrarLogin() {
+      const modal = document.getElementById('loginModal');
+      const overlay = document.getElementById('loginOverlay');
+      modal.style.display = 'block';
+      overlay.style.display = 'block';
+      setTimeout(() => {
+        modal.style.opacity = 1;
+      }, 10);
+    }
+
+    function fecharLogin() {
+      const modal = document.getElementById('loginModal');
+      const overlay = document.getElementById('loginOverlay');
+      modal.style.opacity = 0;
+      setTimeout(() => {
+        modal.style.display = 'none';
+        overlay.style.display = 'none';
+      }, 300);
+    }
+
+    function validarLogin(e) {
+      e.preventDefault();
+      const email = document.querySelector('.login-form input[type="email"]').value;
+      const senha = document.querySelector('.login-form input[type="password"]').value;
+      
+      if(email.includes('@') && senha.length >= 6) {
+        alert('Login bem-sucedido! Redirecionando...');
+        fecharLogin();
+      } else {
+        alert('Por favor, preencha os campos corretamente.');
+      }
+    }
+
+    // Fechar modal com ESC
+    document.addEventListener('keydown', function(e) {
+      if(e.key === 'Escape') fecharLogin();
+    });
+
+    // Animação de scroll com IntersectionObserver
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // Seleciona todos os elementos que terão a animação
+    document.querySelectorAll('.card-servico, .testimonial-card, .gallery-item').forEach(elemento => {
+      observer.observe(elemento);
+    });
+  </script>
+</body>
+</html>
